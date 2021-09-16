@@ -1,0 +1,57 @@
+.form {
+    border: 2px solid black;
+    padding: 15px;
+    margin-top: 15px;
+    text-align: center;
+    background-color: #6C8CD5;
+    width: 300px;
+    transition: max-width 1.5s;
+}
+
+.field:not(:last-child) {
+    margin-bottom: 14px;
+}
+
+.formTitle {
+    font-size: 24px;
+    text-decoration: underline;
+}
+
+.formTitle:after {
+    content: '';
+    width: 25px;
+    height: 25px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 5px;
+
+    background-size: 25px 25px;
+    background-image: url('../../img/form/registration.svg');
+    background-repeat: no-repeat;
+}
+
+input:valid {
+    padding: 20px !important;
+}
+
+.error {
+    color: red;
+    font-size: 18px;
+}
+
+.success {
+    color: green;
+    font-size: 18px;
+}
+
+.btn {
+    margin-top: 15px;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active
+{
+    -webkit-box-shadow: 0 0 0 30px #6C8CD5 inset !important;
+}
