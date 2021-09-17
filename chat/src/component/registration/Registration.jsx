@@ -1,22 +1,22 @@
 import React, {useState} from 'react';
 import {Formik} from 'formik'
 import * as yup from 'yup'
-import {Button, Icon, TextField} from "@material-ui/core";
-
+import {Button, Icon, TextField} from "@material-ui/core"
+import {ToastContainer, toast} from 'react-toastify'
 
 import styles from './Registration.module.css'
+import 'react-toastify/dist/ReactToastify.css'
 
 const Registration = () => {
     const validationsSchema = yup.object().shape({
         name: yup.string().typeError('Должно быть строкой').required('Поле обязательно для заполнения'),
         secondName: yup.string().typeError('Должно быть строкой').required('Поле обязательно для заполнения'),
-        password: yup.string().typeError('Должно быть строкой').required('Поле обязательно для заполнения'),
+        password: yup.string().typeError('Должно быть строкой').required('Поле обязательно для заполнения').min(4, 'Минимальная длина пароля 4 символа').max(15, 'Максимальная длина пароля 15 символов').matches(/(?=.*[!@#$%^&*])/, 'Пароль должен содержать минимум один спецсимвол: !@#$%^&*'),
         confirmPassword: yup.string().oneOf([yup.ref('password')], 'Пароли не совпадают').required('Поле обязательно для заполнения'),
         email: yup.string().email('Введите верный email').required('Поле обязательно для заполнения'),
     })
 
     const [send, setSend] = useState(false)
-
 
     return (
         <div>
@@ -32,6 +32,15 @@ const Registration = () => {
                 validateOnBlur
                 onSubmit={(values, {resetForm}) => {
                     setSend(true)
+                    toast.success('🎯 Данные успешно отправленны!', {
+                        position: "top-center",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    });
                     resetForm()
                 }}
                 validationSchema={validationsSchema}
@@ -105,6 +114,18 @@ const Registration = () => {
                         <p className={styles.error}>{errors.confirmPassword}</p>}
 
                         {send && <p className={styles.success}>Данные успешно отправлены.</p>}
+
+                        <ToastContainer
+                            position="top-center"
+                            autoClose={5000}
+                            hideProgressBar={false}
+                            newestOnTop={false}
+                            closeOnClick
+                            rtl={false}
+                            pauseOnFocusLoss
+                            draggable
+                            pauseOnHover
+                        />
 
                         <div className={styles.btn}>
                             <Button variant="contained"

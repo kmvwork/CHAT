@@ -1,11 +1,11 @@
 .form {
-    border: 2px solid black;
-    padding: 15px;
-    margin-top: 15px;
+    background: #4F4FD9;
+    border-radius: 20px;
+    box-sizing: border-box;
+    padding: 20px;
+    width: 320px;
+    margin-top: 50%;
     text-align: center;
-    background-color: #6C8CD5;
-    width: 300px;
-    transition: max-width 1.5s;
 }
 
 .field:not(:last-child) {
@@ -13,25 +13,26 @@
 }
 
 .formTitle {
-    font-size: 24px;
-    text-decoration: underline;
-}
-
-.formTitle:after {
-    content: '';
-    width: 25px;
-    height: 25px;
-    display: inline-block;
-    vertical-align: middle;
-    margin-left: 5px;
-
-    background-size: 25px 25px;
-    background-image: url('../../img/form/registration.svg');
-    background-repeat: no-repeat;
+    color: #eee;
+    font-family: sans-serif;
+    font-size: 36px;
+    font-weight: 600;
+    margin-top: 30px;
+    text-align: center;
 }
 
 input:valid {
-    padding: 20px !important;
+    border-radius: 12px;
+    color: #eee;
+    font-size: 18px;
+    height: 100%;
+    outline: 0;
+    padding: 4px 20px 0;
+    width: 100%;
+}
+
+label {
+    color: #eee !important;
 }
 
 .error {
@@ -51,7 +52,13 @@ input:valid {
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
-input:-webkit-autofill:active
-{
-    -webkit-box-shadow: 0 0 0 30px #6C8CD5 inset !important;
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+    -webkit-text-fill-color: #eeeeee;
+    -webkit-box-shadow: 0 0 0px 1000px #4F4FD9 inset;
+    transition: background-color 5000s ease-in-out 0s;
 }
