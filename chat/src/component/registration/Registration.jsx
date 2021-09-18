@@ -126,7 +126,7 @@ const Registration = () => {
                             draggable
                             pauseOnHover
                             toastClassName="dark-toast"
-                            toastStyle={{ backgroundColor: "#4F4FD9",  color: '#eee', }}
+                            toastStyle={{backgroundColor: "#4F4FD9", color: '#eee',}}
                         />
 
                         <div className={styles.btn}>
@@ -137,7 +137,7 @@ const Registration = () => {
                                     color='primary'
                                     endIcon={<Icon>send</Icon>}
                             >
-                                Зарегестрироваться
+                                Зарегистрироваться
                             </Button>
                         </div>
                     </div>
