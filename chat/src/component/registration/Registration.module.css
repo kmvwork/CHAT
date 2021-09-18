@@ -4,7 +4,7 @@
     box-sizing: border-box;
     padding: 20px;
     width: 320px;
-    margin-top: 50%;
+    margin-top: 35%;
     text-align: center;
 }
 
@@ -36,8 +36,10 @@ label {
 }
 
 .error {
-    color: red;
-    font-size: 18px;
+    padding: 10px;
+    background-color: #f44336;
+    color: #eeeeee;
+    border-radius: 10px;
 }
 
 .success {

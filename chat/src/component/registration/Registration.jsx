@@ -32,7 +32,7 @@ const Registration = () => {
                 validateOnBlur
                 onSubmit={(values, {resetForm}) => {
                     setSend(true)
-                    toast.success('🎯 Данные успешно отправленны!', {
+                    toast.success('🎯 Данные успешно отправленны! Вы зарегистрированы!', {
                         position: "top-center",
                         autoClose: 5000,
                         hideProgressBar: false,
@@ -125,6 +125,8 @@ const Registration = () => {
                             pauseOnFocusLoss
                             draggable
                             pauseOnHover
+                            toastClassName="dark-toast"
+                            toastStyle={{ backgroundColor: "#4F4FD9",  color: '#eee', }}
                         />
 
                         <div className={styles.btn}>
