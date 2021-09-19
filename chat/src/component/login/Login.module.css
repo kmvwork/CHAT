@@ -1,0 +1,93 @@
+/*.form {*/
+/*    background: #4F4FD9;*/
+/*    border-radius: 20px;*/
+/*    box-sizing: border-box;*/
+/*    padding: 20px;*/
+/*    width: 700px !important;*/
+/*    min-height: 400px;*/
+/*    margin-top: 35%;*/
+/*    text-align: center;*/
+/*}*/
+
+/*.field:not(:last-child) {*/
+/*    margin-bottom: 14px;*/
+/*}*/
+
+/*.formTitle {*/
+/*    color: #eee;*/
+/*    font-family: sans-serif;*/
+/*    font-size: 36px;*/
+/*    font-weight: 600;*/
+/*    margin-top: 30px;*/
+/*    text-align: center;*/
+/*}*/
+
+/*input:invalid {*/
+/*    border-radius: 12px;*/
+/*    color: #eee;*/
+/*    font-size: 18px;*/
+/*    height: 100%;*/
+/*    outline: 0;*/
+/*    padding: 4px 20px 0;*/
+/*    width: 100%;*/
+/*}*/
+
+/*label {*/
+/*    color: #eee !important;*/
+/*}*/
+
+/*.error {*/
+/*    padding: 5px;*/
+/*    background-color: #f44336;*/
+/*    color: #eeeeee;*/
+/*    border-radius: 10px;*/
+/*    text-align: center;*/
+/*    font-size: 12px;*/
+/*    width: 100%;*/
+/*    height: auto;*/
+/*}*/
+
+/*.userLoginImg {*/
+/*    width: 80px !important;*/
+/*    height: 80px !important;*/
+/*    margin: 0 auto;*/
+/*    padding: 10px 0 20px;*/
+/*}*/
+
+/*.success {*/
+/*    color: green;*/
+/*    font-size: 18px;*/
+/*}*/
+
+/*.btn button{*/
+/*    margin-top: 15px;*/
+/*    padding: 15px 0;*/
+/*    width: 100%;*/
+/*}*/
+
+/*.linkBtnGroup {*/
+/*    display:flex !important;*/
+/*    justify-content:space-between;*/
+/*    margin-top: 25px;*/
+/*    padding: 5px;*/
+/*}*/
+
+/*.linkBtn {*/
+/*    font-size: 16px !important;*/
+/*    color: #eeeeee !important;*/
+/*    font-weight: bold !important;*/
+/*}*/
+
+/*input:-webkit-autofill,*/
+/*input:-webkit-autofill:hover,*/
+/*input:-webkit-autofill:focus,*/
+/*textarea:-webkit-autofill,*/
+/*textarea:-webkit-autofill:hover,*/
+/*textarea:-webkit-autofill:focus,*/
+/*select:-webkit-autofill,*/
+/*select:-webkit-autofill:hover,*/
+/*select:-webkit-autofill:focus {*/
+/*    -webkit-text-fill-color: #eeeeee;*/
+/*    -webkit-box-shadow: 0 0 0px transparent inset;*/
+/*    transition: background-color 5000s ease-in-out 0s;*/
+/*}*/
