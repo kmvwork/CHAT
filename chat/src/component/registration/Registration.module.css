@@ -1,66 +1,60 @@
-.form {
-    background: #4F4FD9;
-    border-radius: 20px;
-    box-sizing: border-box;
-    padding: 20px;
-    width: 320px;
-    margin-top: 35%;
-    text-align: center;
-}
+/*.form {*/
+/*    background: #4F4FD9;*/
+/*    border-radius: 20px;*/
+/*    box-sizing: border-box;*/
+/*    padding: 20px;*/
+/*    width: 320px;*/
+/*    margin-top: 35%;*/
+/*    text-align: center;*/
+/*}*/
 
-.field:not(:last-child) {
-    margin-bottom: 14px;
-}
+/*.field:not(:last-child) {*/
+/*    margin-bottom: 14px;*/
+/*}*/
 
-.formTitle {
-    color: #eee;
-    font-family: sans-serif;
-    font-size: 36px;
-    font-weight: 600;
-    margin-top: 30px;
-    text-align: center;
-}
+/*.formTitle {*/
+/*    color: #eee;*/
+/*    font-family: sans-serif;*/
+/*    font-size: 36px;*/
+/*    font-weight: 600;*/
+/*    margin-top: 30px;*/
+/*    text-align: center;*/
+/*}*/
 
-input:valid {
-    border-radius: 12px;
-    color: #eee;
-    font-size: 18px;
-    height: 100%;
-    outline: 0;
-    padding: 4px 20px 0;
-    width: 100%;
-}
+/*input {*/
+/*    color: #eee;*/
+/*}*/
 
-label {
-    color: #eee !important;
-}
+/*label {*/
+/*    color: #eee !important;*/
+/*}*/
 
-.error {
-    padding: 10px;
-    background-color: #f44336;
-    color: #eeeeee;
-    border-radius: 10px;
-}
+/*.error {*/
+/*    padding: 10px;*/
+/*    background-color: #f44336;*/
+/*    color: #eeeeee;*/
+/*    border-radius: 10px;*/
+/*}*/
 
-.success {
-    color: green;
-    font-size: 18px;
-}
+/*.success {*/
+/*    color: green;*/
+/*    font-size: 18px;*/
+/*}*/
 
-.btn {
-    margin-top: 15px;
-}
+/*.btn {*/
+/*    margin-top: 15px;*/
+/*}*/
 
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-textarea:-webkit-autofill,
-textarea:-webkit-autofill:hover,
-textarea:-webkit-autofill:focus,
-select:-webkit-autofill,
-select:-webkit-autofill:hover,
-select:-webkit-autofill:focus {
-    -webkit-text-fill-color: #eeeeee;
-    -webkit-box-shadow: 0 0 0px 1000px #4F4FD9 inset;
-    transition: background-color 5000s ease-in-out 0s;
-}
+/*input:-webkit-autofill,*/
+/*input:-webkit-autofill:hover,*/
+/*input:-webkit-autofill:focus,*/
+/*textarea:-webkit-autofill,*/
+/*textarea:-webkit-autofill:hover,*/
+/*textarea:-webkit-autofill:focus,*/
+/*select:-webkit-autofill,*/
+/*select:-webkit-autofill:hover,*/
+/*select:-webkit-autofill:focus {*/
+/*    -webkit-text-fill-color: #eeeeee;*/
+/*    -webkit-box-shadow: 0 0 0px 1000px transparent inset;*/
+/*    transition: background-color 5000s ease-in-out 0s;*/
+/*}*/

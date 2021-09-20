@@ -1,8 +1,5 @@
 import React, {useState} from 'react';
 import {Grid, Modal} from "@material-ui/core";
-import Registration from "../../component/registration/Registration";
-import Login from "../../component/login/Login";
-import {useDispatch, useSelector} from "react-redux";
 import SignIn from "../../component/login/SignIn";
 
 const Auth = () => {
@@ -15,18 +12,6 @@ const Auth = () => {
     const handleClose = () => {
       setOpen(false)
     }
-
-    // const dispatch = useDispatch()
-    // const selector = useSelector(state => state.users)
-    // console.log(selector)
-
-    // const addUser = ({...user}) => {
-    //     dispatch({type:'ADD_USER', payload:{
-    //             ...user
-    //         }})
-    //     console.log('addUSER')
-    // }
-
 
     return (
         <div>
@@ -47,7 +32,6 @@ const Auth = () => {
                     alignItems="center"
                 >
                     {/*<Registration onAddUser={addUser}/>*/}
-                    {/*<Login/>*/}
                     <SignIn/>
                 </Grid>
             </Modal>
