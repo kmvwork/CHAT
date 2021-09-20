@@ -1,11 +1,24 @@
 import React, {useState} from 'react';
 import {Formik} from 'formik'
 import * as yup from 'yup'
-import {Button, Icon, TextField} from "@material-ui/core"
+import {
+    Avatar,
+    Box,
+    Button, Checkbox,
+    Container, createTheme,
+    CssBaseline,
+    FormControlLabel, Grid,
+    Icon, Link,
+    TextField,
+    Typography,
+    ThemeProvider
+} from "@material-ui/core"
 import {ToastContainer, toast} from 'react-toastify'
 
 import styles from './Registration.module.css'
 import 'react-toastify/dist/ReactToastify.css'
+import AddToQueue from "@material-ui/icons/AddToQueue";
+
 
 const Registration = () => {
     const validationsSchema = yup.object().shape({
@@ -17,6 +30,8 @@ const Registration = () => {
     })
 
     const [send, setSend] = useState(false)
+
+    const theme = createTheme();
 
     return (
         <div>
@@ -50,97 +65,136 @@ const Registration = () => {
                       handleChange, handleBlur,
                       isValid, handleSubmit, dirty
                   }) => (
-                    <div className={styles.form}>
-                        <div>
-                            <h3 className={styles.formTitle}>Регистрация</h3>
-                        </div>
-
-                        <div className={styles.field}>
-                            <TextField label="Имя"
-                                       error={false}
-                                       type='text'
-                                       name='name'
-                                       onChange={handleChange}
-                                       onBlur={handleBlur}
-                                       value={values.name}
-                            />
-                        </div>
-                        {touched.name && errors.name && <p className={styles.error}>{errors.name}</p>}
-
-                        <div className={styles.field}>
-                            <TextField label="Фамилия"
-                                       type='text'
-                                       name='secondName'
-                                       onChange={handleChange}
-                                       onBlur={handleBlur}
-                                       value={values.secondName}
-                            />
-                        </div>
-                        {touched.secondName && errors.secondName &&
-                        <p className={styles.error}>{errors.secondName}</p>}
-
-                        <div className={styles.field}>
-                            <TextField label="Email"
-                                       type='text'
-                                       name='email'
-                                       onChange={handleChange}
-                                       onBlur={handleBlur}
-                                       value={values.email}
-                            />
-                        </div>
-                        {touched.email && errors.email && <p className={styles.error}>{errors.email}</p>}
-
-                        <div className={styles.field}>
-                            <TextField label="Пароль"
-                                       type='password'
-                                       name='password'
-                                       onChange={handleChange}
-                                       onBlur={handleBlur}
-                                       value={values.password}
-                            />
-                        </div>
-                        {touched.password && errors.password && <p className={styles.error}>{errors.password}</p>}
-
-                        <div className={styles.field}>
-                            <TextField label="Подтверждение пароля"
-                                       type='password'
-                                       name='confirmPassword'
-                                       onChange={handleChange}
-                                       onBlur={handleBlur}
-                                       value={values.confirmPassword}
-                            />
-                        </div>
-                        {touched.confirmPassword && errors.confirmPassword &&
-                        <p className={styles.error}>{errors.confirmPassword}</p>}
-
-                        {send && <p className={styles.success}>Данные успешно отправлены.</p>}
-
-                        <ToastContainer
-                            position="top-center"
-                            autoClose={5000}
-                            hideProgressBar={false}
-                            newestOnTop={false}
-                            closeOnClick
-                            rtl={false}
-                            pauseOnFocusLoss
-                            draggable
-                            pauseOnHover
-                            toastClassName="dark-toast"
-                            toastStyle={{backgroundColor: "#4F4FD9", color: '#eee',}}
-                        />
-
-                        <div className={styles.btn}>
-                            <Button variant="contained"
-                                    disabled={!isValid || !dirty}
-                                    onClick={handleSubmit}
-                                    type='submit'
-                                    color='primary'
-                                    endIcon={<Icon>send</Icon>}
+                    <ThemeProvider theme={theme}>
+                        <Container component="main" maxWidth="xs">
+                            <CssBaseline/>
+                            <Box
+                                sx={{
+                                    marginTop: 8,
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    alignItems: 'center',
+                                }}
                             >
-                                Зарегистрироваться
-                            </Button>
-                        </div>
-                    </div>
+                                <Avatar sx={{m: 1, bgcolor: 'secondary.main'}}>
+                                    <AddToQueue/>
+                                </Avatar>
+                                <Typography className={styles.formTitle} component="h1" variant="h5">
+                                    Регистрация
+                                </Typography>
+                                <Box component="form" noValidate sx={{mt: 1}}>
+
+                                    <TextField
+                                        margin="normal"
+                                        required
+                                        fullWidth
+                                        id="name"
+                                        label="Имя"
+                                        name="name"
+                                        autoComplete="email"
+                                        autoFocus
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        value={values.name}
+                                        error={!!(touched.name && errors.name)}
+                                        helperText={errors.name}
+                                        variant="filled"
+                                    />
+
+                                    <TextField
+                                        margin="normal"
+                                        required
+                                        fullWidth
+                                        id="name"
+                                        label="Фамилия"
+                                        name="secondName"
+                                        autoComplete="secondName"
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        value={values.secondName}
+                                        error={!!(touched.secondName && errors.secondName)}
+                                        helperText={errors.secondName}
+                                        variant="filled"
+                                    />
+
+
+                                    <TextField
+                                        margin="normal"
+                                        required
+                                        fullWidth
+                                        id="email"
+                                        label="Email"
+                                        name="email"
+                                        autoComplete="email"
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        value={values.email}
+                                        error={!!(touched.email && errors.email)}
+                                        helperText={errors.email}
+                                        variant="filled"
+                                    />
+
+                                    <TextField
+                                        margin="normal"
+                                        required
+                                        fullWidth
+                                        name="password"
+                                        label="Пароль"
+                                        type="password"
+                                        id="password"
+                                        autoComplete="current-password"
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        value={values.password}
+                                        error={!!(touched.password && errors.password)}
+                                        helperText={errors.password}
+                                        variant="filled"
+                                    />
+
+                                    <TextField
+                                        margin="normal"
+                                        required
+                                        fullWidth
+                                        name="confirmPassword"
+                                        label="Подтвердить пароль"
+                                        type="password"
+                                        id="confirmPassword"
+                                        autoComplete="current-password"
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        value={values.confirmPassword}
+                                        error={!!(touched.confirmPassword && errors.confirmPassword)}
+                                        helperText={errors.confirmPassword}
+                                        variant="filled"
+                                    />
+
+                                    <ToastContainer
+                                        position="top-center"
+                                        autoClose={5000}
+                                        hideProgressBar={false}
+                                        newestOnTop={false}
+                                        closeOnClick
+                                        rtl={false}
+                                        pauseOnFocusLoss
+                                        draggable
+                                        pauseOnHover
+                                        toastStyle={{backgroundColor: "#1976d2", color: '#eee', borderRadius: '10px'}}
+                                    />
+
+                                    <Button
+                                        type="submit"
+                                        fullWidth
+                                        variant="contained"
+                                        sx={{mt: 3, mb: 2}}
+                                        onClick={handleSubmit}
+                                        color='primary'
+                                    >
+                                        Зарегистрироваться
+                                    </Button>
+                                </Box>
+                            </Box>
+                        </Container>
+                    </ThemeProvider>
                 )}
             </Formik>
         </div>
