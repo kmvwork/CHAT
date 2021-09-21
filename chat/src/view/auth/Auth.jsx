@@ -26,8 +26,6 @@ const Auth = () => {
 
     store.dispatch(toggleSignUPForm());
 
-
-
     return (
         <div>
             <button type="button" onClick={handleOpen}>

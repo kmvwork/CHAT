@@ -1,13 +1,23 @@
-import initialState from "./initialState";
+import {LOGIN_USER_SUCCESS} from "../actions/types";
+
+const initialState = {
+    users: [],
+    ui: {
+        isSignInFormHidden: false,
+        isSignUpFormHidden: false,
+    }
+}
 
 export default function contactReducer(state = initialState.users, action) {
-    switch(action.type) {
-        case "ADD_USER": {
+    const payload = action.payload
+    switch (action.type) {
+        case LOGIN_USER_SUCCESS: {
             return {
                 ...state,
-                contactList: [...state.contactList, state.users]
+                payload
             }
         }
-        default: return state;
+        default:
+            return state;
     }
 }
