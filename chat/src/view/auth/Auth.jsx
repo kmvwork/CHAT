@@ -1,9 +1,6 @@
 import React, {useState} from 'react';
 import {Grid, Modal} from "@material-ui/core";
 import SignIn from "../../component/login/SignIn";
-import configureStore from "../../redux/store/createStore";
-import {toggleSignINForm, toggleSignUPForm} from "../../redux/actions/uiActions";
-
 
 const Auth = () => {
     const [open, setOpen] = useState(false)
@@ -15,16 +12,6 @@ const Auth = () => {
     const handleClose = () => {
       setOpen(false)
     }
-
-    const store = configureStore()
-
-    const unsubscribe = store.subscribe(() =>
-        console.log(store.getState())
-    )
-
-    store.dispatch(toggleSignINForm());
-
-    store.dispatch(toggleSignUPForm());
 
     return (
         <div>

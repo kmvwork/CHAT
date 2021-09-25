@@ -17,6 +17,8 @@ import {useState} from "react";
 import {Formik} from "formik";
 import {toast, ToastContainer} from "react-toastify";
 import styles from "./SignIn.module.css";
+import {useDispatch, useSelector} from "react-redux";
+import {add} from "../../redux/userSlice";
 
 
 const theme = createTheme();
@@ -29,6 +31,10 @@ export default function SignIn() {
     })
 
     const [send, setSend] = useState(false)
+
+    const user = useSelector(state => state)
+    console.log(user)
+    const dispatch = useDispatch()
 
     return (
         <div>
@@ -75,6 +81,7 @@ export default function SignIn() {
                                 <Typography className={styles.formTitle} component="h1" variant="h5">
                                     Вход в систему
                                 </Typography>
+
                                 <Box component="form" noValidate sx={{mt: 1}}>
                                     <TextField
                                         margin="normal"
@@ -132,7 +139,12 @@ export default function SignIn() {
                                             </Link>
                                         </Grid>
                                         <Grid item>
-                                            <Link href="#" variant="body2" className={styles.formLink}>
+                                            <Link onClick={() => dispatch(add())}
+                                                  href="#" variant="body2" className={styles.formLink}>
+                                                Регистрация
+                                            </Link>
+                                            <Link onClick={() => console.log(user)}
+                                                  href="#" variant="body2" className={styles.formLink}>
                                                 Регистрация
                                             </Link>
                                         </Grid>
