@@ -1,9 +1,14 @@
 import './App.css';
+import Auth from "./view/auth";
 
 function App() {
-  return (
-    <div>START</div>
-  );
+
+    return (
+        <>
+            <h1>START</h1>
+            <Auth/>
+        </>
+    );
 }
 
 export default App;
