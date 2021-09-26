@@ -20,6 +20,8 @@ import styles from "./SignIn.module.css";
 import {useDispatch, useSelector} from "react-redux";
 import {add} from "../../redux/userSlice";
 
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const theme = createTheme();
 
@@ -33,7 +35,7 @@ export default function SignIn() {
     const [send, setSend] = useState(false)
 
     const user = useSelector(state => state)
-    console.log(user)
+
     const dispatch = useDispatch()
 
     return (
@@ -45,6 +47,7 @@ export default function SignIn() {
                 }}
                 validateOnBlur
                 onSubmit={(values, {resetForm}) => {
+                    dispatch(add(values))
                     setSend(true)
                     toast.success(' Вход в систему!', {
                         position: "top-center",
@@ -67,6 +70,19 @@ export default function SignIn() {
                     <ThemeProvider theme={theme}>
                         <Container component="main" maxWidth="xs">
                             <CssBaseline/>
+
+                            <ToastContainer
+                                position="top-center"
+                                autoClose={5000}
+                                hideProgressBar={false}
+                                newestOnTop={false}
+                                closeOnClick
+                                rtl={false}
+                                pauseOnFocusLoss
+                                draggable
+                                pauseOnHover
+                                toastStyle={{backgroundColor: "#1976d2", color: '#eee', borderRadius: '10px'}}
+                            />
                             <Box
                                 sx={{
                                     marginTop: 8,
@@ -139,12 +155,7 @@ export default function SignIn() {
                                             </Link>
                                         </Grid>
                                         <Grid item>
-                                            <Link onClick={() => dispatch(add())}
-                                                  href="#" variant="body2" className={styles.formLink}>
-                                                Регистрация
-                                            </Link>
-                                            <Link onClick={() => console.log(user)}
-                                                  href="#" variant="body2" className={styles.formLink}>
+                                            <Link href="#" variant="body2" className={styles.formLink}>
                                                 Регистрация
                                             </Link>
                                         </Grid>
@@ -155,19 +166,7 @@ export default function SignIn() {
                     </ThemeProvider>
                 )}
             </Formik>
-
-            <ToastContainer
-                position="top-center"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                toastStyle={{backgroundColor: "#1976d2", color: '#eee', borderRadius: '10px'}}
-            />
         </div>
+
     );
 }

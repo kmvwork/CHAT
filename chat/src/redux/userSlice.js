@@ -21,9 +21,9 @@ export const userSlice = createSlice({
             const {email, password} = action.payload
             console.log('add')
 
-            state.currentUser = email
-            state.currentUser = password
-        }
+            state.currentUser.email = email
+            state.currentUser.password = password
+        },
     }
 })
 
