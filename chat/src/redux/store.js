@@ -11,7 +11,8 @@ export default configureStore({
     reducer: {
         user: userSlice
     },
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware({thunk:false}).concat(sagaMiddleware, logger),
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(sagaMiddleware, logger),
 })
+
 
 sagaMiddleware.run(rootSaga)

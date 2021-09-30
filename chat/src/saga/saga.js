@@ -1,11 +1,11 @@
-import {takeLatest, all, call} from "redux-saga/effects";
+import {takeLatest, all, call, put} from "redux-saga/effects";
 import {RegisterUserService, SignInService} from "../API/firebase";
 
 
-export function workerRegistrationUser(action) {
+export function* workerRegistrationUser(action) {
     try {
-        const [email, password] = action
-        const response = yield call(RegisterUserService, {email, password});
+        const {email, password} = action.payload
+        const response = yield call(RegisterUserService, email, password);
         yield put({type: "user/signIn", response})
     } catch (error) {
         const errorMessage = error.message
@@ -13,10 +13,11 @@ export function workerRegistrationUser(action) {
     }
 }
 
-export function workerLoginUser(action) {
+export function* workerLoginUser({action}) {
     try {
-        const [email, password] = action
-        const response = yield call(SignInService, {email, password});
+        console.log('workerLoginUser')
+        const {email, password} = action.payload
+        const response = yield call(SignInService, email, password);
         yield put({type: "user/signIn", response})
     } catch (error) {
         const errorMessage = error.message

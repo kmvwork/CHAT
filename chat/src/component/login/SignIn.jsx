@@ -18,10 +18,9 @@ import {Formik} from "formik";
 import {toast, ToastContainer} from "react-toastify";
 import styles from "./SignIn.module.css";
 import {useDispatch, useSelector} from "react-redux";
-import {add} from "../../redux/userSlice";
+import {add, signIn, signUp} from "../../redux/userSlice";
 
 import 'react-toastify/dist/ReactToastify.css';
-
 
 const theme = createTheme();
 
@@ -47,7 +46,7 @@ export default function SignIn() {
                 }}
                 validateOnBlur
                 onSubmit={(values, {resetForm}) => {
-                    dispatch(add(values))
+                    dispatch(signIn(values))
                     setSend(true)
                     toast.success(' Вход в систему!', {
                         position: "top-center",

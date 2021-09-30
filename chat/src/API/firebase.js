@@ -20,6 +20,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 export const RegisterUserService = async (email, password) => {
+    console.log('RegisterUserService')
     const result = await firebase.auth().createUserWithEmailAndPassword(email, password)
         .then((userCredential) => {
             // Signed in
@@ -37,6 +38,9 @@ export const RegisterUserService = async (email, password) => {
 }
 
 export const SignInService = async (email, password) => {
+    console.log('SignInService')
+    console.log('email', email)
+    console.log('password', password)
     const result = await firebase.auth().signInWithEmailAndPassword(email, password)
         .then((userCredential) => {
             // Signed in
