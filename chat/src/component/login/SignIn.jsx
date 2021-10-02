@@ -21,6 +21,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {add, signIn, signUp} from "../../redux/userSlice";
 
 import 'react-toastify/dist/ReactToastify.css';
+import {Alert} from "@mui/material";
 
 const theme = createTheme();
 
@@ -32,8 +33,11 @@ export default function SignIn() {
     })
 
     const [send, setSend] = useState(false)
+    const [login, setLogin] = useState(false)
+    const [errorLogin, setErrorLogin] = useState(false)
 
-    const user = useSelector(state => state)
+    const selector = useSelector(store => store.user)
+    console.log(selector)
 
     const dispatch = useDispatch()
 
@@ -46,18 +50,32 @@ export default function SignIn() {
                 }}
                 validateOnBlur
                 onSubmit={(values, {resetForm}) => {
-                    dispatch(signIn(values))
-                    setSend(true)
-                    toast.success(' Вход в систему!', {
-                        position: "top-center",
-                        autoClose: 5000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                    });
-                    resetForm()
+
+                    for(let user of selector.users) {
+                        if(user.email === values.email && user.password === values.password) {
+                            dispatch(signIn(values))
+                            setSend(true)
+                            toast.success(' Вход в систему!', {
+                                position: "top-center",
+                                autoClose: 5000,
+                                hideProgressBar: false,
+                                closeOnClick: true,
+                                pauseOnHover: true,
+                                draggable: true,
+                                progress: undefined,
+                            });
+                            setLogin(true)
+                            setErrorLogin(false)
+                            resetForm()
+                        } else {
+                            console.log('NOT USER')
+                            setErrorLogin(true)
+                            setLogin(false)
+                        }
+                    }
+
+
+
                 }}
                 validationSchema={validationsSchema}
             >
@@ -147,6 +165,19 @@ export default function SignIn() {
                                     >
                                         Войти
                                     </Button>
+                                    {
+                                        login ? <Alert variant="filled" severity="success">
+                                            Вы успешно вошли!
+                                        </Alert> : null
+                                    }
+                                    {
+                                        errorLogin ? <Alert variant="filled" severity="error">
+                                            Не удалось войти - не верный логин или пароль!
+                                        </Alert> : null
+                                    }
+                                    {/*<Alert className={login ? styles.hiddenAlert} variant="filled" severity="error">*/}
+                                    {/*    Не удалось войти - не верный логин или пароль!*/}
+                                    {/*</Alert>*/}
                                     <Grid container>
                                         <Grid item xs>
                                             <Link href="#" variant="body2" className={styles.formLink}>

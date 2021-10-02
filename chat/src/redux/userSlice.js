@@ -23,12 +23,12 @@ export const usersSlice = createSlice({
 
             state.currentUser.email = email
             state.currentUser.password = password
+            state.userLogged = true
         },
         signOut: (state) => {
-            state.userLogged = false
-
             state.currentUser.email = ''
             state.currentUser.password = ''
+            state.userLogged = false
         },
         addUser: (state, action) => {
             const {name, secondName, email, password} = action.payload
