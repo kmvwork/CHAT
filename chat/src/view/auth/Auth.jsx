@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {Grid, Modal} from "@material-ui/core";
 import SignIn from "../../component/login/SignIn";
+import Chat from "../chat/Chat";
 
 const Auth = () => {
     const [open, setOpen] = useState(false)
@@ -32,7 +33,8 @@ const Auth = () => {
                     alignItems="center"
                 >
                     {/*<Registration onAddUser={addUser}/>*/}
-                    <SignIn/>
+                    {/*<SignIn/>*/}
+                    <Chat/>
                 </Grid>
             </Modal>
         </div>
