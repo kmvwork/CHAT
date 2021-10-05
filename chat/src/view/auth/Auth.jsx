@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {Grid, Modal} from "@material-ui/core";
-import Registration from "../../component/registration/Registration";
+import SignIn from "../../component/login/SignIn";
+import Chat from "../chat/Chat";
 
 const Auth = () => {
     const [open, setOpen] = useState(false)
@@ -13,9 +14,8 @@ const Auth = () => {
       setOpen(false)
     }
 
-
     return (
-        <>
+        <div>
             <button type="button" onClick={handleOpen}>
                 Open Modal
             </button>
@@ -24,6 +24,7 @@ const Auth = () => {
                 onClose={handleClose}
                 aria-labelledby="simple-modal-title"
                 aria-describedby="simple-modal-description"
+                style={{width:'100%'}}
             >
                 <Grid
                     container
@@ -31,10 +32,12 @@ const Auth = () => {
                     justifyContent="center"
                     alignItems="center"
                 >
-                    <Registration/>
+                    {/*<Registration onAddUser={addUser}/>*/}
+                    {/*<SignIn/>*/}
+                    <Chat/>
                 </Grid>
             </Modal>
-        </>
+        </div>
     );
 };
 

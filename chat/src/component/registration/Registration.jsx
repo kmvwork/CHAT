@@ -20,7 +20,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import AddToQueue from "@material-ui/icons/AddToQueue";
 
 
-const Registration = () => {
+const Registration = ({onAddUser}) => {
     const validationsSchema = yup.object().shape({
         name: yup.string().typeError('Должно быть строкой').required('Поле обязательно для заполнения'),
         secondName: yup.string().typeError('Должно быть строкой').required('Поле обязательно для заполнения'),
@@ -56,6 +56,12 @@ const Registration = () => {
                         draggable: true,
                         progress: undefined,
                     });
+                    onAddUser({
+                        name: 'M',
+                        secondName: 'I',
+                        password: '123!',
+                        email: 'max@tut.by'
+                    })
                     resetForm()
                 }}
                 validationSchema={validationsSchema}
