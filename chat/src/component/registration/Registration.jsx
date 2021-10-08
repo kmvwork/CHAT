@@ -4,20 +4,22 @@ import * as yup from 'yup'
 import {
     Avatar,
     Box,
-    Button, Checkbox,
+    Button,
     Container, createTheme,
     CssBaseline,
-    FormControlLabel, Grid,
-    Icon, Link,
     TextField,
     Typography,
     ThemeProvider
 } from "@material-ui/core"
 import {ToastContainer, toast} from 'react-toastify'
+import {Link} from "react-router-dom";
 
 import styles from './Registration.module.css'
 import 'react-toastify/dist/ReactToastify.css'
 import AddToQueue from "@material-ui/icons/AddToQueue";
+import {useDispatch, useSelector} from "react-redux";
+import {addUser} from "../../redux/userSlice";
+import {Alert} from "@mui/material";
 
 
 const Registration = ({onAddUser}) => {
@@ -30,6 +32,11 @@ const Registration = ({onAddUser}) => {
     })
 
     const [send, setSend] = useState(false)
+    const [repeatUser, setRepeatUser] = useState(false)
+    const [registration, setRegistration] = useState(false)
+    const dispatch = useDispatch()
+
+    const selector = useSelector(store => store.user)
 
     const theme = createTheme();
 
@@ -46,23 +53,30 @@ const Registration = ({onAddUser}) => {
                 }}
                 validateOnBlur
                 onSubmit={(values, {resetForm}) => {
-                    setSend(true)
-                    toast.success('🎯 Данные успешно отправленны! Вы зарегистрированы!', {
-                        position: "top-center",
-                        autoClose: 5000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                    });
-                    onAddUser({
-                        name: 'M',
-                        secondName: 'I',
-                        password: '123!',
-                        email: 'max@tut.by'
+                    const repeat = selector.users.filter(item => {
+                        return item.email === values.email
                     })
-                    resetForm()
+
+                    if (!!repeat.length) {
+                        setRepeatUser(true)
+                    } else {
+                        setSend(true)
+                        toast.success('🎯 Данные успешно отправленны! Вы зарегистрированы!', {
+                            position: "top-center",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                        });
+                        const value = {...values, uid: new Date().getTime()}
+                        setRepeatUser(false)
+                        setRegistration(true)
+                        dispatch(addUser(value))
+                        resetForm()
+                    }
+
                 }}
                 validationSchema={validationsSchema}
             >
@@ -187,11 +201,31 @@ const Registration = ({onAddUser}) => {
                                         toastStyle={{backgroundColor: "#1976d2", color: '#eee', borderRadius: '10px'}}
                                     />
 
+                                    {
+                                        repeatUser ? <Alert sx={{mt: 1, mb: 1}} variant="filled" severity="info">
+                                            Пользователь с таким Email уже существует!
+                                            Перейдите на страницу входа
+                                            <div>
+                                                <Link to="/">Перейти</Link>
+                                            </div>
+
+                                        </Alert> : null
+                                    }
+                                    {
+                                        registration ? <Alert sx={{mt: 1, mb: 1}} variant="filled" severity="info">
+                                            Успешная регистрация! Перейдите на страницу входа
+                                            <div>
+                                                <Link to="/">Перейти</Link>
+                                            </div>
+
+                                        </Alert> : null
+                                    }
+
                                     <Button
                                         type="submit"
                                         fullWidth
                                         variant="contained"
-                                        sx={{mt: 3, mb: 2}}
+                                        sx={{mt: 5, mb: 2}}
                                         onClick={handleSubmit}
                                         color='primary'
                                     >

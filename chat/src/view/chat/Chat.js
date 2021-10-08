@@ -181,6 +181,7 @@ export default function Chat() {
                             alignItems="center"
                         >
                             <Avatar alt="Cindy Baker"/>
+
                             <Button variant="contained" endIcon={<ExitToAppIcon/>}>
                                 Выйти
                             </Button>

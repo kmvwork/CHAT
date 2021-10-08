@@ -3,21 +3,18 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Lock from '@material-ui/icons/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 import * as yup from "yup";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {Formik} from "formik";
-import {toast, ToastContainer} from "react-toastify";
-import styles from "./SignIn.module.css";
+import {ToastContainer} from "react-toastify";
+import styles from "./PasswordChange.module.css";
 import {useDispatch, useSelector} from "react-redux";
-import {signIn} from "../../redux/userSlice";
+import {passwordChange} from "../../redux/userSlice";
 
 import 'react-toastify/dist/ReactToastify.css';
 import {Alert} from "@mui/material";
@@ -28,16 +25,17 @@ import {
 
 const theme = createTheme();
 
-export default function SignIn() {
+export default function PasswordChange() {
 
     const validationsSchema = yup.object().shape({
         password: yup.string().typeError('Должно быть строкой').required('Поле обязательно для заполнения'),
+        confirmPassword: yup.string().oneOf([yup.ref('password')], 'Пароли не совпадают').required('Поле обязательно для заполнения'),
         email: yup.string().email('Введите верный email').required('Поле обязательно для заполнения')
     })
 
     const [send, setSend] = useState(false)
-    const [login, setLogin] = useState(false)
-    const [errorLogin, setErrorLogin] = useState(false)
+    const [newPassword, setNewPassword] = useState(false)
+    const [errorChangePassword, setErrorChangePassword] = useState(false)
 
     const selector = useSelector(store => store.user)
 
@@ -45,13 +43,6 @@ export default function SignIn() {
 
     let history = useHistory();
 
-    useEffect(() => {
-        if (selector.currentUser.uid) {
-            setTimeout(()=> {
-                history.push('/chat')
-            }, 5000)
-        }
-    }, [selector.currentUser.uid])
 
     return (
         <div>
@@ -59,32 +50,23 @@ export default function SignIn() {
                 initialValues={{
                     password: '',
                     email: '',
+                    confirmPassword: ''
                 }}
                 validateOnBlur
                 onSubmit={(values, {resetForm}) => {
 
-                    for (let user of selector.users) {
-                        if (user.email === values.email && user.password === values.password) {
-                            dispatch(signIn(values))
-                            setSend(true)
-                            toast.success(' Вход в систему!', {
-                                position: "top-center",
-                                autoClose: 5000,
-                                hideProgressBar: false,
-                                closeOnClick: true,
-                                pauseOnHover: true,
-                                draggable: true,
-                                progress: undefined,
-                            });
-                            setLogin(true)
-                            setErrorLogin(false)
-                            // resetForm()
-                        } else {
-                            console.log('NOT USER')
-                            setErrorLogin(true)
-                            setLogin(false)
-                        }
+                    const changeUser = selector.users.filter(item => {
+                        return item.email === values.email
+                    })
+
+                    if (changeUser.length) {
+                        setNewPassword(true)
+                        setErrorChangePassword(false)
+                        dispatch(passwordChange(values))
+                    } else {
+                        setErrorChangePassword(true)
                     }
+
                 }}
                 validationSchema={validationsSchema}
             >
@@ -121,7 +103,7 @@ export default function SignIn() {
                                     <Lock/>
                                 </Avatar>
                                 <Typography className={styles.formTitle} component="h1" variant="h5">
-                                    Вход в систему
+                                    Смена пароля
                                 </Typography>
 
                                 <Box component="form" noValidate sx={{mt: 1}}>
@@ -159,20 +141,39 @@ export default function SignIn() {
                                         variant="filled"
                                     />
 
-                                    <FormControlLabel
-                                        control={<Checkbox value="remember" color="primary"/>}
-                                        className={styles.formRemember}
-                                        label="Запомнить меня"
+                                    <TextField
+                                        margin="normal"
+                                        required
+                                        fullWidth
+                                        name="confirmPassword"
+                                        label="Подтвердить пароль"
+                                        type="password"
+                                        id="confirmPassword"
+                                        autoComplete="current-password"
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        value={values.confirmPassword}
+                                        error={!!(touched.confirmPassword && errors.confirmPassword)}
+                                        helperText={errors.confirmPassword}
+                                        variant="filled"
                                     />
 
                                     {
-                                        login ? <Alert variant="filled" severity="success">
-                                            Вы успешно вошли!
+                                        newPassword ? <Alert variant="filled" severity="success">
+                                            Пароль успешно был изменен! Войдите в систему
+                                            <div>
+                                                <Link to="/">Войти</Link>
+                                            </div>
                                         </Alert> : null
+
                                     }
                                     {
-                                        errorLogin ? <Alert variant="filled" severity="error">
-                                            Не удалось войти - не верный логин или пароль!
+                                        errorChangePassword ? <Alert variant="filled" severity="error">
+                                            Пользователь с таким Email не найден.
+                                            Перейдите на страницу Регистрации
+                                            <div>
+                                                <Link to="/signup">Перейти</Link>
+                                            </div>
                                         </Alert> : null
                                     }
 
@@ -183,21 +184,9 @@ export default function SignIn() {
                                         sx={{mt: 3, mb: 2}}
                                         onClick={handleSubmit}
                                     >
-                                        Войти
+                                        Сменить пароль
                                     </Button>
 
-                                    <Grid container>
-                                        <Grid item xs>
-                                            <Link to='/passwordChange' variant="body2" className={styles.formLink}>
-                                                Забыли пароль?
-                                            </Link>
-                                        </Grid>
-                                        <Grid item>
-                                            <Link to="/signup" variant="body2" className={styles.formLink}>
-                                                Регистрация
-                                            </Link>
-                                        </Grid>
-                                    </Grid>
                                 </Box>
                             </Box>
                         </Container>
