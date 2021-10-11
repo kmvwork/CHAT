@@ -30,11 +30,15 @@ import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import {ListItemAvatar} from "@material-ui/core";
 
+
+
 import SearchBar from "material-ui-search-bar"
 import {useDispatch} from "react-redux";
 import {signOut} from "../../redux/userSlice";
 import {useHistory} from "react-router-dom";
 
+
+const icons = ['PersonIcon', 'ChatBubbleIcon','ImageIcon', 'SlowMotionVideoIcon', 'SettingsIcon']
 
 const messageExamples = [
     {
@@ -164,113 +168,116 @@ export default function Chat() {
     const userExit = () => {
         dispatch(signOut())
         history.push('./')
-
-
     }
 
     return (
-        <Box sx={{display: 'flex', width: '100%'}}>
-            <CssBaseline/>
-            <AppBar position="fixed" open={open}>
-                <Toolbar>
-                    <IconButton
-                        color="inherit"
-                        aria-label="open drawer"
-                        onClick={handleDrawerOpen}
-                        edge="start"
-                        sx={{
-                            marginRight: '36px',
-                            ...(open && {display: 'none'}),
-                        }}
-                    >
-                        <MenuIcon/>
-                    </IconButton>
-                    <Grid
-                        container
-                        direction="row"
-                        justifyContent="space-between"
-                        alignItems="center"
-                    >
-                        <Avatar alt="Cindy Baker"/>
 
-                        <Button
-                            variant="contained"
-                            endIcon={<ExitToAppIcon/>}
-                            onClick={() => userExit()}
+            <Box sx={{display: 'flex', width: '100%'}}>
+                <CssBaseline/>
+                <AppBar position="fixed" open={open}>
+                    <Toolbar>
+                        <IconButton
+                            color="inherit"
+                            aria-label="open drawer"
+                            onClick={handleDrawerOpen}
+                            edge="start"
+                            sx={{
+                                marginRight: '36px',
+                                ...(open && {display: 'none'}),
+                            }}
                         >
-                            Выйти
-                        </Button>
-                    </Grid>
-                </Toolbar>
-            </AppBar>
-            <Drawer variant="permanent" open={open}>
-                <DrawerHeader>
-                    <IconButton onClick={handleDrawerClose}>
-                        {theme.direction === 'rtl' ? <ChevronRightIcon/> : <ChevronLeftIcon/>}
-                    </IconButton>
-                </DrawerHeader>
-                <Divider/>
-                <List>
-                    <ListItemButton>
-                        <ListItemIcon>
-                            <PersonIcon/>
-                        </ListItemIcon>
-                        <ListItemText primary="Профиль"/>
-                    </ListItemButton>
-                    <ListItemButton>
-                        <ListItemIcon>
-                            <ChatBubbleIcon/>
-                        </ListItemIcon>
-                        <ListItemText primary="Чаты"/>
-                    </ListItemButton>
-                    <ListItemButton>
-                        <ListItemIcon>
-                            <ImageIcon/>
-                        </ListItemIcon>
-                        <ListItemText primary="Изображения"/>
-                    </ListItemButton>
-                    <ListItemButton>
-                        <ListItemIcon>
-                            <SlowMotionVideoIcon/>
-                        </ListItemIcon>
-                        <ListItemText primary="Видео"/>
-                    </ListItemButton>
-                    <ListItemButton>
-                        <ListItemIcon>
-                            <SettingsIcon/>
-                        </ListItemIcon>
-                        <ListItemText primary="Настройки"/>
-                    </ListItemButton>
-                </List>
-                <Divider/>
-            </Drawer>
-            <Box component="main" sx={{flexGrow: 1, p: 3,}}>
+                            <MenuIcon/>
+                        </IconButton>
+                        <Grid
+                            container
+                            direction="row"
+                            justifyContent="space-between"
+                            alignItems="center"
+                        >
+                            <Avatar alt="Cindy Baker"/>
 
-                <DrawerHeader/>
+                            <Button
+                                variant="contained"
+                                endIcon={<ExitToAppIcon/>}
+                                onClick={() => userExit()}
+                            >
+                                Выйти
+                            </Button>
+                        </Grid>
+                    </Toolbar>
+                </AppBar>
+                <Drawer variant="permanent" open={open}>
+                    <DrawerHeader>
+                        <IconButton onClick={handleDrawerClose}>
+                            {theme.direction === 'rtl' ? <ChevronRightIcon/> : <ChevronLeftIcon/>}
+                        </IconButton>
+                    </DrawerHeader>
 
-                <SearchBar
-                    style={{width: '100%'}}
-                    // value={this.state.value}
-                    // onChange={(newValue) => this.setState({ value: newValue })}
-                    // onRequestSearch={() => doSomethingWith(this.state.value)}
-                />
-                {messageExamples.map(({primary, secondary, person}, index) => (
-                    <Box style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                        <ListItem button key={index + person}>
-                            <ListItemAvatar>
-                                <Avatar alt="Profile Picture" src={person}/>
-                            </ListItemAvatar>
-                            <ListItemText primary={primary} secondary={secondary}/>
-                        </ListItem>
+                    <Divider />
+                    <List>
+                        <ListItemButton>
+                            <ListItemIcon>
+                                <PersonIcon/>
+                            </ListItemIcon>
+                            <ListItemText primary="Профиль"/>
+                        </ListItemButton>
 
-                        <Button size="small" variant="contained"
-                                href="#contained-buttons">
-                            Открыть
-                        </Button>
-                    </Box>
-                ))}
+                        <ListItemButton>
+                            <ListItemIcon>
+                                <ChatBubbleIcon/>
+                            </ListItemIcon>
+                            <ListItemText primary="Чаты"/>
+                        </ListItemButton>
+
+                        <ListItemButton>
+                            <ListItemIcon>
+                                <ImageIcon/>
+                            </ListItemIcon>
+                            <ListItemText primary="Изображения"/>
+                        </ListItemButton>
+
+                        <ListItemButton>
+                            <ListItemIcon>
+                                <SlowMotionVideoIcon/>
+                            </ListItemIcon>
+                            <ListItemText primary="Видео"/>
+                        </ListItemButton>
+
+                        <ListItemButton>
+                            <ListItemIcon>
+                                <SettingsIcon/>
+                            </ListItemIcon>
+                            <ListItemText primary="Настройки"/>
+                        </ListItemButton>
+                    </List>
+                    <Divider/>
+
+                </Drawer>
+                <Box component="main" sx={{flexGrow: 1, p: 3,}}>
+                    <DrawerHeader/>
+                    <SearchBar
+                        style={{width: '100%'}}
+                        // value={this.state.value}
+                        // onChange={(newValue) => this.setState({ value: newValue })}
+                        // onRequestSearch={() => doSomethingWith(this.state.value)}
+                    />
+                    {messageExamples.map(({primary, secondary, person}, index) => (
+                        <Box style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                            <ListItem button key={index + person}>
+                                <ListItemAvatar>
+                                    <Avatar alt="Profile Picture" src={person}/>
+                                </ListItemAvatar>
+                                <ListItemText primary={primary} secondary={secondary}/>
+                            </ListItem>
+
+                            <Button size="small" variant="contained"
+                                    href="#contained-buttons">
+                                Открыть
+                            </Button>
+                        </Box>
+                    ))}
+                </Box>
             </Box>
-        </Box>
     )
 }
 

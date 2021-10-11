@@ -29,22 +29,22 @@ export const usersSlice = createSlice({
         ]
     },
     reducers: {
-        signIn: (state, action) => {
-            const setCurrentUser = state.users.filter(item => {
-                return item.email === action.payload.email
-            })
-
-            state.currentUser = setCurrentUser[0]
-            state.userLogged = true
-        },
-        signOut: (state) => {
-            state.userLogged = false
-            state.currentUser.uid = ''
-            state.currentUser.name = ''
-            state.currentUser.secondName = ''
-            state.currentUser.email = ''
-            state.currentUser.password = ''
-        },
+        // signIn: (state, action) => {
+        //     const setCurrentUser = state.users.filter(item => {
+        //         return item.email === action.payload.email
+        //     })
+        //
+        //     state.currentUser = setCurrentUser[0]
+        //     state.userLogged = true
+        // },
+        // signOut: (state) => {
+        //     state.userLogged = false
+        //     state.currentUser.uid = ''
+        //     state.currentUser.name = ''
+        //     state.currentUser.secondName = ''
+        //     state.currentUser.email = ''
+        //     state.currentUser.password = ''
+        // },
         addUser: (state, action) => {
             const {name, secondName, email, password, uid} = action.payload
             state.users.push({
@@ -59,6 +59,24 @@ export const usersSlice = createSlice({
             state.users.filter(item => {
                 return item.email === action.payload.email ? item.password = action.payload.password : null
             })
+        },
+
+        signIn:(state, action) => {
+            const {email, password} = action.payload
+            console.log('entries')
+
+            state.userLogged = true
+            state.currentUser.email = email
+            state.currentUser.password = password
+        },
+        signOut:(state) => {
+            state.userLogged = false
+
+            state.currentUser.email = ''
+            state.currentUser.password = ''
+        },
+        signInError:(state,payload) => {
+            state.userLogged = false
         }
     },
 })

@@ -26,6 +26,7 @@ import {Alert} from "@mui/material";
 import {
     Link, useHistory
 } from "react-router-dom";
+import {loginUserAsync} from "../../sagas";
 
 const theme = createTheme();
 
@@ -41,6 +42,7 @@ export default function SignIn() {
     const [errorLogin, setErrorLogin] = useState(false)
 
     const selector = useSelector(store => store.user)
+    const store = useSelector(store => store)
 
     const dispatch = useDispatch()
 
@@ -51,6 +53,8 @@ export default function SignIn() {
                 history.push('/chat')
         }
     }, [selector.currentUser.uid])
+
+    // console.log('store', store)
 
     return (
         <div>
@@ -63,7 +67,7 @@ export default function SignIn() {
                 onSubmit={(values, {resetForm}) => {
 
                     for (let user of selector.users) {
-                        if (user.email === values.email && user.password === values.password) {
+                        // if (user.email === values.email && user.password === values.password) {
                             dispatch(signIn(values))
                             setSend(true)
                             toast.success(' Вход в систему!', {
@@ -75,14 +79,14 @@ export default function SignIn() {
                                 draggable: true,
                                 progress: undefined,
                             });
-                            setLogin(true)
-                            setErrorLogin(false)
+                            // setLogin(true)
+                            // setErrorLogin(false)
                             // resetForm()
-                        } else {
-                            console.log('NOT USER')
-                            setErrorLogin(true)
-                            setLogin(false)
-                        }
+                        // } else {
+                        //     console.log('NOT USER')
+                        //     setErrorLogin(true)
+                        //     setLogin(false)
+                        // }
                     }
                 }}
                 validationSchema={validationsSchema}
