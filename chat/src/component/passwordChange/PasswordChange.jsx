@@ -22,13 +22,14 @@ import {Alert} from "@mui/material";
 import {
     Link, useHistory
 } from "react-router-dom";
+import Grid from "@mui/material/Grid";
 
 const theme = createTheme();
 
 export default function PasswordChange() {
 
     const validationsSchema = yup.object().shape({
-        password: yup.string().typeError('Должно быть строкой').required('Поле обязательно для заполнения'),
+        password: yup.string().typeError('Должно быть строкой').required('Поле обязательно для заполнения').min(4, 'Минимальная длина пароля 4 символа').max(15, 'Максимальная длина пароля 15 символов').matches(/(?=.*[!@#$%^&*])/, 'Пароль должен содержать минимум один спецсимвол: !@#$%^&*'),
         confirmPassword: yup.string().oneOf([yup.ref('password')], 'Пароли не совпадают').required('Поле обязательно для заполнения'),
         email: yup.string().email('Введите верный email').required('Поле обязательно для заполнения')
     })
@@ -129,7 +130,7 @@ export default function PasswordChange() {
                                         required
                                         fullWidth
                                         name="password"
-                                        label="Password"
+                                        label="Новый пароль"
                                         type="password"
                                         id="password"
                                         autoComplete="current-password"
@@ -186,6 +187,19 @@ export default function PasswordChange() {
                                     >
                                         Сменить пароль
                                     </Button>
+
+                                    <Grid container>
+                                        <Grid item xs>
+                                            <Link to='/' variant="body2" className={styles.formLink}>
+                                                Вход в систему
+                                            </Link>
+                                        </Grid>
+                                        <Grid item>
+                                            <Link to="/signup" variant="body2" className={styles.formLink}>
+                                                Регистрация
+                                            </Link>
+                                        </Grid>
+                                    </Grid>
 
                                 </Box>
                             </Box>

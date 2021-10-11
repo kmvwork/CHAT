@@ -14,12 +14,15 @@ import {
 import {ToastContainer, toast} from 'react-toastify'
 import {Link} from "react-router-dom";
 
-import styles from './Registration.module.css'
+
 import 'react-toastify/dist/ReactToastify.css'
 import AddToQueue from "@material-ui/icons/AddToQueue";
 import {useDispatch, useSelector} from "react-redux";
 import {addUser} from "../../redux/userSlice";
 import {Alert} from "@mui/material";
+import Grid from "@mui/material/Grid";
+
+import styles from './Registration.module.css'
 
 
 const Registration = ({onAddUser}) => {
@@ -125,7 +128,7 @@ const Registration = ({onAddUser}) => {
                                         margin="normal"
                                         required
                                         fullWidth
-                                        id="name"
+                                        id="secondName"
                                         label="Фамилия"
                                         name="secondName"
                                         autoComplete="secondName"
@@ -136,7 +139,6 @@ const Registration = ({onAddUser}) => {
                                         helperText={errors.secondName}
                                         variant="filled"
                                     />
-
 
                                     <TextField
                                         margin="normal"
@@ -225,12 +227,25 @@ const Registration = ({onAddUser}) => {
                                         type="submit"
                                         fullWidth
                                         variant="contained"
-                                        sx={{mt: 5, mb: 2}}
+                                        sx={{mt: 3, mb: 2}}
                                         onClick={handleSubmit}
                                         color='primary'
                                     >
                                         Зарегистрироваться
                                     </Button>
+
+                                    <Grid container>
+                                        <Grid item xs>
+                                            <Link to='/' variant="body2" className={styles.formLink}>
+                                                Вход в систему
+                                            </Link>
+                                        </Grid>
+                                        {/*<Grid item>*/}
+                                        {/*    <Link to="/signup" variant="body2" className={styles.formLink}>*/}
+                                        {/*        Регистрация*/}
+                                        {/*    </Link>*/}
+                                        {/*</Grid>*/}
+                                    </Grid>
                                 </Box>
                             </Box>
                         </Container>

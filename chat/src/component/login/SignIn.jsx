@@ -15,6 +15,7 @@ import * as yup from "yup";
 import {useEffect, useState} from "react";
 import {Formik} from "formik";
 import {toast, ToastContainer} from "react-toastify";
+
 import styles from "./SignIn.module.css";
 import {useDispatch, useSelector} from "react-redux";
 import {signIn} from "../../redux/userSlice";
@@ -47,9 +48,7 @@ export default function SignIn() {
 
     useEffect(() => {
         if (selector.currentUser.uid) {
-            setTimeout(()=> {
                 history.push('/chat')
-            }, 5000)
         }
     }, [selector.currentUser.uid])
 
@@ -133,7 +132,6 @@ export default function SignIn() {
                                         label="Email Address"
                                         name="email"
                                         autoComplete="email"
-                                        autoFocus
                                         onChange={handleChange}
                                         onBlur={handleBlur}
                                         value={values.email}
