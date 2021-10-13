@@ -1,4 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
+import {userUid} from "../services/authService";
 
 export const usersSlice = createSlice({
     name: 'user',
@@ -47,13 +48,12 @@ export const usersSlice = createSlice({
         // },
         addUser: (state, action) => {
             const {name, secondName, email, password, uid} = action.payload
-            state.users.push({
-                uid,
-                name,
-                secondName,
-                email,
-                password
-            })
+
+            state.userLogged = true
+            state.currentUser.email = email
+            state.currentUser.password = password
+            state.currentUser.uid = uid
+
         },
         passwordChange: (state, action) => {
             state.users.filter(item => {
@@ -62,20 +62,22 @@ export const usersSlice = createSlice({
         },
 
         signIn:(state, action) => {
-            const {email, password} = action.payload
-            console.log('entries')
+            const {email, password, uid} = action.payload
 
             state.userLogged = true
             state.currentUser.email = email
             state.currentUser.password = password
+            state.currentUser.uid = uid
         },
         signOut:(state) => {
             state.userLogged = false
 
             state.currentUser.email = ''
             state.currentUser.password = ''
+            state.currentUser.uid = ''
         },
         signInError:(state,payload) => {
+            console.log('error')
             state.userLogged = false
         }
     },

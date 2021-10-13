@@ -23,6 +23,7 @@ import {Alert} from "@mui/material";
 import Grid from "@mui/material/Grid";
 
 import styles from './Registration.module.css'
+import {registrationUserAsync} from "../../sagas";
 
 
 const Registration = ({onAddUser}) => {
@@ -56,29 +57,31 @@ const Registration = ({onAddUser}) => {
                 }}
                 validateOnBlur
                 onSubmit={(values, {resetForm}) => {
-                    const repeat = selector.users.filter(item => {
-                        return item.email === values.email
-                    })
-
-                    if (!!repeat.length) {
-                        setRepeatUser(true)
-                    } else {
-                        setSend(true)
-                        toast.success('🎯 Данные успешно отправленны! Вы зарегистрированы!', {
-                            position: "top-center",
-                            autoClose: 5000,
-                            hideProgressBar: false,
-                            closeOnClick: true,
-                            pauseOnHover: true,
-                            draggable: true,
-                            progress: undefined,
-                        });
-                        const value = {...values, uid: new Date().getTime()}
-                        setRepeatUser(false)
-                        setRegistration(true)
-                        dispatch(addUser(value))
-                        resetForm()
-                    }
+                    // const repeat = selector.users.filter(item => {
+                    //     return item.email === values.email
+                    // })
+                    //
+                    // if (!!repeat.length) {
+                    //     setRepeatUser(true)
+                    // } else {
+                    //     setSend(true)
+                    //     toast.success('🎯 Данные успешно отправленны! Вы зарегистрированы!', {
+                    //         position: "top-center",
+                    //         autoClose: 5000,
+                    //         hideProgressBar: false,
+                    //         closeOnClick: true,
+                    //         pauseOnHover: true,
+                    //         draggable: true,
+                    //         progress: undefined,
+                    //     });
+                    //     const value = {...values, uid: new Date().getTime()}
+                    //     setRepeatUser(false)
+                    //     setRegistration(true)
+                    //     dispatch(addUser(value))
+                    //
+                    //     resetForm()
+                    // }
+                    dispatch(registrationUserAsync(values))
 
                 }}
                 validationSchema={validationsSchema}

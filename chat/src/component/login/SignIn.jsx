@@ -27,6 +27,7 @@ import {
     Link, useHistory
 } from "react-router-dom";
 import {loginUserAsync} from "../../sagas";
+import firebase from "../../firebase";
 
 const theme = createTheme();
 
@@ -50,11 +51,30 @@ export default function SignIn() {
 
     useEffect(() => {
         if (selector.currentUser.uid) {
-                history.push('/chat')
+            history.push('/chat')
         }
     }, [selector.currentUser.uid])
 
-    // console.log('store', store)
+    const rememberMe = () => {
+        firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                // User is signed in, see docs for a list of available properties
+                // https://firebase.google.com/docs/reference/js/firebase.User
+                let uid = user.uid;
+                localStorage.setItem('uid', uid)
+                // ...
+            } else {
+                console.log('NOT uid')
+                // User is signed out
+                // ...
+            }
+        });
+
+
+        // console.log('store', store.user.uid)
+        localStorage.setItem('uid', store.user.uid)
+    }
+
 
     return (
         <div>
@@ -66,28 +86,29 @@ export default function SignIn() {
                 validateOnBlur
                 onSubmit={(values, {resetForm}) => {
 
-                    for (let user of selector.users) {
-                        // if (user.email === values.email && user.password === values.password) {
-                            dispatch(signIn(values))
-                            setSend(true)
-                            toast.success(' Вход в систему!', {
-                                position: "top-center",
-                                autoClose: 5000,
-                                hideProgressBar: false,
-                                closeOnClick: true,
-                                pauseOnHover: true,
-                                draggable: true,
-                                progress: undefined,
-                            });
-                            // setLogin(true)
-                            // setErrorLogin(false)
-                            // resetForm()
-                        // } else {
-                        //     console.log('NOT USER')
-                        //     setErrorLogin(true)
-                        //     setLogin(false)
-                        // }
-                    }
+                    // for (let user of selector.users) {
+                    // if (user.email === values.email && user.password === values.password) {
+                    //     dispatch(signIn(values))
+                    dispatch(loginUserAsync(values))
+                    // setSend(true)
+                    // toast.success(' Вход в систему!', {
+                    //     position: "top-center",
+                    //     autoClose: 5000,
+                    //     hideProgressBar: false,
+                    //     closeOnClick: true,
+                    //     pauseOnHover: true,
+                    //     draggable: true,
+                    //     progress: undefined,
+                    // });
+                    // setLogin(true)
+                    // setErrorLogin(false)
+                    // resetForm()
+                    // } else {
+                    //     console.log('NOT USER')
+                    //     setErrorLogin(true)
+                    //     setLogin(false)
+                    // }
+                    // }
                 }}
                 validationSchema={validationsSchema}
             >
