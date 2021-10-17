@@ -12,6 +12,8 @@ import Registration from "./component/registration/Registration";
 import PasswordChange from "./component/passwordChange/PasswordChange";
 import { StyledEngineProvider } from '@mui/material/styles';
 
+
+
 function App() {
     return (
         <>

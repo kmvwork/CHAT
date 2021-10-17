@@ -27,7 +27,8 @@ import {
     Link, useHistory
 } from "react-router-dom";
 import {loginUserAsync} from "../../sagas";
-import firebase from "../../firebase";
+import {getData, getDataSnapshot} from "../../services/getDatabase";
+
 
 const theme = createTheme();
 
@@ -38,43 +39,41 @@ export default function SignIn() {
         email: yup.string().email('Введите верный email').required('Поле обязательно для заполнения')
     })
 
-    const [send, setSend] = useState(false)
-    const [login, setLogin] = useState(false)
-    const [errorLogin, setErrorLogin] = useState(false)
+    const [rememberUser, setRememberUser] = useState(false)
 
     const selector = useSelector(store => store.user)
-    const store = useSelector(store => store)
+    const errorLogin = useSelector(store => store.user.userSignInError.error)
+    const userLogged = useSelector(store => store.user.userLogged)
 
     const dispatch = useDispatch()
 
     let history = useHistory();
 
+    // useEffect(()=> {
+    //     if (localStorage.getItem('uid') === selector.currentUser.uid && selector.currentUser.uid !== '') {
+    //         console.log('TRRRUEEE')
+    //         setTimeout(() => {
+    //             history.push('/chat')
+    //         }, 3000)
+    //     } else if (selector.currentUser.uid) {
+    //         console.log('UUUU', localStorage.getItem('uid'))
+    //         history.push('/chat')
+    //     }
+    // }, [])
+
     useEffect(() => {
-        if (selector.currentUser.uid) {
-            history.push('/chat')
-        }
-    }, [selector.currentUser.uid])
+        setTimeout(() => {
+            if (selector.currentUser.uid) {
+                console.log('UUUU', localStorage.getItem('uid'))
+                history.push('/chat')
 
-    const rememberMe = () => {
-        firebase.auth().onAuthStateChanged((user) => {
-            if (user) {
-                // User is signed in, see docs for a list of available properties
-                // https://firebase.google.com/docs/reference/js/firebase.User
-                let uid = user.uid;
-                localStorage.setItem('uid', uid)
-                // ...
-            } else {
-                console.log('NOT uid')
-                // User is signed out
-                // ...
+                getData(selector.currentUser.uid)
             }
-        });
+        }, 3000)
+        // getDataSnapshot(selector.currentUser.uid)
 
 
-        // console.log('store', store.user.uid)
-        localStorage.setItem('uid', store.user.uid)
-    }
-
+    }, [selector.currentUser.uid])
 
     return (
         <div>
@@ -86,29 +85,10 @@ export default function SignIn() {
                 validateOnBlur
                 onSubmit={(values, {resetForm}) => {
 
-                    // for (let user of selector.users) {
-                    // if (user.email === values.email && user.password === values.password) {
-                    //     dispatch(signIn(values))
+                    values.remember = rememberUser
+                    console.log('V', values)
+
                     dispatch(loginUserAsync(values))
-                    // setSend(true)
-                    // toast.success(' Вход в систему!', {
-                    //     position: "top-center",
-                    //     autoClose: 5000,
-                    //     hideProgressBar: false,
-                    //     closeOnClick: true,
-                    //     pauseOnHover: true,
-                    //     draggable: true,
-                    //     progress: undefined,
-                    // });
-                    // setLogin(true)
-                    // setErrorLogin(false)
-                    // resetForm()
-                    // } else {
-                    //     console.log('NOT USER')
-                    //     setErrorLogin(true)
-                    //     setLogin(false)
-                    // }
-                    // }
                 }}
                 validationSchema={validationsSchema}
             >
@@ -186,10 +166,12 @@ export default function SignIn() {
                                         control={<Checkbox value="remember" color="primary"/>}
                                         className={styles.formRemember}
                                         label="Запомнить меня"
+                                        defaultChecked={rememberUser}
+                                        onChange={() => setRememberUser(!rememberUser)}
                                     />
 
                                     {
-                                        login ? <Alert variant="filled" severity="success">
+                                        userLogged ? <Alert variant="filled" severity="success">
                                             Вы успешно вошли!
                                         </Alert> : null
                                     }

@@ -30,7 +30,7 @@ const Registration = ({onAddUser}) => {
     const validationsSchema = yup.object().shape({
         name: yup.string().typeError('Должно быть строкой').required('Поле обязательно для заполнения'),
         secondName: yup.string().typeError('Должно быть строкой').required('Поле обязательно для заполнения'),
-        password: yup.string().typeError('Должно быть строкой').required('Поле обязательно для заполнения').min(4, 'Минимальная длина пароля 4 символа').max(15, 'Максимальная длина пароля 15 символов').matches(/(?=.*[!@#$%^&*])/, 'Пароль должен содержать минимум один спецсимвол: !@#$%^&*'),
+        password: yup.string().typeError('Должно быть строкой').required('Поле обязательно для заполнения').min(6, 'Минимальная длина пароля 6 символов').max(15, 'Максимальная длина пароля 15 символов').matches(/(?=.*[!@#$%^&*])/, 'Пароль должен содержать минимум один спецсимвол: !@#$%^&*'),
         confirmPassword: yup.string().oneOf([yup.ref('password')], 'Пароли не совпадают').required('Поле обязательно для заполнения'),
         email: yup.string().email('Введите верный email').required('Поле обязательно для заполнения'),
     })

@@ -6,7 +6,9 @@ export const firebaseConfig = {
     projectId: "react-chat-e80e2",
     storageBucket: "react-chat-e80e2.appspot.com",
     messagingSenderId: "517626893722",
-    appId: "1:517626893722:web:8254f53946e54b0c2f9623"
+    appId: "1:517626893722:web:8254f53946e54b0c2f9623",
+
+    databaseURL:"https://react-chat-e80e2-default-rtdb.europe-west1.firebasedatabase.app/"
 };
 
 firebase.initializeApp(firebaseConfig)
