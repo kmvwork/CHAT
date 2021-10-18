@@ -49,17 +49,20 @@ export default function SignIn() {
 
     let history = useHistory();
 
-    // useEffect(()=> {
-    //     if (localStorage.getItem('uid') === selector.currentUser.uid && selector.currentUser.uid !== '') {
-    //         console.log('TRRRUEEE')
-    //         setTimeout(() => {
-    //             history.push('/chat')
-    //         }, 3000)
-    //     } else if (selector.currentUser.uid) {
-    //         console.log('UUUU', localStorage.getItem('uid'))
-    //         history.push('/chat')
-    //     }
-    // }, [])
+    useEffect(() => {
+        // if (localStorage.getItem('uid') === selector.currentUser.uid) {
+        if (localStorage.getItem('uid') ) {
+            console.log('TRRRUEEE')
+            setTimeout(() => {
+                history.push('/chat')
+            }, 3000)
+        }
+    }, [])
+
+// else if (selector.currentUser.uid) {
+//         console.log('UUUU', localStorage.getItem('uid'))
+//         history.push('/chat')
+//     }
 
     useEffect(() => {
         setTimeout(() => {

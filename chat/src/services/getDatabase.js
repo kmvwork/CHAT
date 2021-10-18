@@ -1,10 +1,10 @@
 import firebase from 'firebase'
+// import firebase from '../firebase/'
 
 export const  getData = (postId)=> {
     console.log('postID', postId)
-    console.log('usersRef', usersRef)
     const usersRef = firebase.database().ref('users/');
-
+    console.log('usersRef2', usersRef)
     usersRef.on('value', (snapshot) => {
         const data = snapshot.val();
         console.log('dataFB', data)
