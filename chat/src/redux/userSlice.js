@@ -22,7 +22,6 @@ export const usersSlice = createSlice({
     reducers: {
         addUser: (state, action) => {
             const {name, secondName, email, password, uid} = action.payload
-
             state.userLogged = true
             state.currentUser.email = email
             state.currentUser.password = password
@@ -36,13 +35,13 @@ export const usersSlice = createSlice({
         },
 
         signIn: (state, action) => {
-            const {email, password, uid, remember} = action.payload
+            const {remember, uid} = action.payload
+            console.log('action.payload', action.payload)
+            // console.log('payload', remember)
 
             state.userLogged = true
-            state.remember = remember
-            state.currentUser.email = email
-            state.currentUser.password = password
             state.currentUser.uid = uid
+            state.remember = !!remember
             state.userSignInError.error = false
         },
         signOut: (state) => {
@@ -56,10 +55,19 @@ export const usersSlice = createSlice({
 
             state.userLogged = false
             state.userSignInError.error = true
+        },
+        getUserInfo: (state, action) => {
+            console.log('action', action)
+            const {email, password, uid, name, secondName} = action.payload
+            state.currentUser.email = email
+            state.currentUser.password = password
+            state.currentUser.uid = uid
+            state.currentUser.name = name
+            state.currentUser.secondName = secondName
         }
     },
 })
 
-export const {signIn, signOut, addUser, passwordChange, signInError} = usersSlice.actions
+export const {signIn, signOut, addUser, passwordChange, signInError, getUserInfo} = usersSlice.actions
 
 export default usersSlice.reducer

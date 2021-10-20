@@ -26,7 +26,7 @@ import {Alert} from "@mui/material";
 import {
     Link, useHistory
 } from "react-router-dom";
-import {loginUserAsync} from "../../sagas";
+import {getUser, loginUserAsync} from "../../sagas";
 import {getData, getDataSnapshot} from "../../services/getDatabase";
 
 
@@ -50,32 +50,24 @@ export default function SignIn() {
     let history = useHistory();
 
     useEffect(() => {
-        // if (localStorage.getItem('uid') === selector.currentUser.uid) {
-        if (localStorage.getItem('uid') ) {
-            console.log('TRRRUEEE')
+        if (localStorage.getItem('uid')) {
             setTimeout(() => {
                 history.push('/chat')
+                console.log('selector.currentUser.uid@@@', selector.currentUser.uid)
+                dispatch(getUser(selector.currentUser.uid))
             }, 3000)
         }
     }, [])
-
-// else if (selector.currentUser.uid) {
-//         console.log('UUUU', localStorage.getItem('uid'))
-//         history.push('/chat')
-//     }
 
     useEffect(() => {
         setTimeout(() => {
             if (selector.currentUser.uid) {
                 console.log('UUUU', localStorage.getItem('uid'))
                 history.push('/chat')
-
-                getData(selector.currentUser.uid)
+                console.log('selector.currentUser.uid@@@', selector.currentUser.uid)
+                dispatch(getUser(selector.currentUser.uid))
             }
         }, 3000)
-        // getDataSnapshot(selector.currentUser.uid)
-
-
     }, [selector.currentUser.uid])
 
     return (
@@ -87,10 +79,8 @@ export default function SignIn() {
                 }}
                 validateOnBlur
                 onSubmit={(values, {resetForm}) => {
-
                     values.remember = rememberUser
                     console.log('V', values)
-
                     dispatch(loginUserAsync(values))
                 }}
                 validationSchema={validationsSchema}

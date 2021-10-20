@@ -1,7 +1,7 @@
 import {takeLatest, all, call, put} from "redux-saga/effects";
 import {SignInService, SignUpService, userUid} from "../services/authService"
 import {createAction} from "@reduxjs/toolkit";
-import {addUser, signIn, signInError} from "../redux/userSlice";
+import {addUser, getUserInfo, signIn, signInError} from "../redux/userSlice";
 import {toast} from "react-toastify";
 import firebase from "../firebase";
 import {getData, getDataSnapshot} from "../services/getDatabase";
@@ -19,14 +19,23 @@ const rememberMe = (remember) => {
     }
 }
 
-export const loginUserAsync = createAction('user/loginUserAsync');
-export const registrationUserAsync = createAction('user/registrationUserAsync');
+export function* workerGetUser(action) {
+    try{
+        // const {uid} = action.payload
+        console.log('action.payload.uid', action.payload)
+        const data = yield call(getData, action.payload)
+        console.log('data!!!!!!', data)
+        console.log('data', data[0])
+        yield put(getUserInfo(data[0]))
+    } catch (error) {
+        console.log('err', error)
+    }
+}
 
 export function* workerRegistrationUser(action) {
     try {
         const {email, password, name, secondName} = action.payload
         const response = yield call(SignUpService, email, password);
-
         let uid = response.response.user.uid
 
         yield put(addUser({email, password, name, secondName, uid}))
@@ -44,15 +53,11 @@ export function* workerLoginUser(action) {
 
         const response = yield call(SignInService, email, password);
         const uidSave = yield call(rememberMe, remember)
-
         let uid = response.response.user.uid
-        console.log('getData')
-        // const data = yield call(getData, uid)
-        // const data = yield call(getDataSnapshot, uid)
+        console.log('uid', uid)
+        console.log('remember', remember)
 
-
-
-        yield put(signIn({email, password, uid, remember}))
+        yield put(signIn({remember, uid}))
 
         toast.success(' Вход в систему!', {
             position: "top-center",
@@ -78,6 +83,10 @@ export function* workerLoginUser(action) {
     }
 }
 
+export const loginUserAsync = createAction('user/loginUserAsync');
+export const registrationUserAsync = createAction('user/registrationUserAsync');
+export const getUser = createAction('user/getUser');
+
 export function* watchLoginUser() {
     yield takeLatest(loginUserAsync, workerLoginUser)
 }
@@ -85,8 +94,11 @@ export function* watchLoginUser() {
 export function* watchRegistrationUser() {
     yield takeLatest(registrationUserAsync, workerRegistrationUser)
 }
+export function* watchGetUser() {
+    yield takeLatest(getUser, workerGetUser)
+}
 
 export default function* rootSaga() {
-    yield all([watchLoginUser(), watchRegistrationUser()])
+    yield all([watchLoginUser(), watchRegistrationUser(), watchGetUser()])
 
 }
